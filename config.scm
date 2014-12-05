@@ -1,11 +1,12 @@
 ;; This is an operating system configuration template.
 
-(use-modules (gnu))
+(use-modules (gnu)
+             (gnu services xorg))
 
 (operating-system
   (host-name "antelope")
   (timezone "Europe/Paris")
-  (locale "en_US.UTF-8")
+  (locale "en_US.utf8")
 
   ;; Assuming /dev/sdX is the target hard disk, and "root" is
   ;; the label of the target root file system.
@@ -21,6 +22,9 @@
                         (mount-point "/")
                         (type "ext4"))
                       %base-file-systems))
+
+  (services (cons* (slim-service)
+                   %base-services))
 
   ;; This is where user accounts are specified.  The "root"
   ;; account is implicit, and is initially created with the
