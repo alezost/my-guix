@@ -1,7 +1,13 @@
 ;; This is an operating system configuration template.
 
 (use-modules (gnu)
-             (gnu services xorg))
+             (gnu packages emacs)
+             (gnu packages ratpoison)
+             (gnu packages xorg)
+             (gnu packages ssh)
+             (gnu services xorg)
+             (gnu services networking)
+             (gnu services ssh))
 
 (operating-system
   (host-name "antelope")
@@ -24,7 +30,12 @@
                       %base-file-systems))
 
   (services (cons* (slim-service)
+		   (lsh-service)
+		   ;(openssh-service)
+		   (dhcp-client-service)
                    %base-services))
+  (packages (cons* emacs xterm ratpoison openssh
+                   %base-packages))
 
   ;; This is where user accounts are specified.  The "root"
   ;; account is implicit, and is initially created with the
