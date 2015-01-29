@@ -1,13 +1,17 @@
 ;; This is an operating system configuration template.
 
 (use-modules (gnu)
-             (gnu packages emacs)
-             (gnu packages ratpoison)
-             (gnu packages xorg)
-             (gnu packages ssh)
-             (gnu services xorg)
-             (gnu services networking)
-             (gnu services ssh))
+             (gnu packages)
+             (gnu services)
+             (gnu system)
+	     (guix monads))
+(use-service-modules
+  base networking ssh dbus xorg)
+
+	(use-package-modules
+	 emacs conkeror ratpoison feh grub gawk perl ncurses fonts 
+	 version-control ssh wget video xiph file compression admin linux xorg
+	 aspell skribilo )
 
 (operating-system
   (host-name "antelope")
@@ -30,12 +34,21 @@
                       %base-file-systems))
 
   (services (cons* (slim-service)
-		   (lsh-service)
-		   ;(openssh-service)
+	           (lsh-service #:initialize? #t)
+	           (dbus-service '())
 		   (dhcp-client-service)
                    %base-services))
-  (packages (cons* emacs xterm ratpoison openssh
-                   %base-packages))
+
+  (packages (cons* grub
+		   tar gzip bzip2 xz file diffutils gawk perl
+                   ncurses git wget openssh
+		   isc-dhcp iw wpa-supplicant		   
+		   xinit xset setxkbmap xkill xorg-server
+                   aspell aspell-dict-en font-dejavu font-terminus
+                   feh alsa-utils vorbis-tools ffmpeg mplayer
+		   xterm skribilo ratpoison conkeror
+                   emacs emms magit geiser paredit
+		   %base-packages))
 
   ;; This is where user accounts are specified.  The "root"
   ;; account is implicit, and is initially created with the
