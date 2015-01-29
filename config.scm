@@ -33,8 +33,15 @@
                         (type "ext4"))
                       %base-file-systems))
 
-  (services (cons* (slim-service)
-	           (lsh-service #:initialize? #t)
+  (services (cons* 
+        (slim-service #:allow-empty-passwords? #f #:auto-login? #f
+                      #:startx (xorg-start-command #:drivers '("cirrus" "vesa")
+                                                   #:resolutions
+                                                     '((1024 768) (640 480))))
+        (lsh-service #:port-number 22 #:root-login? #f
+                     #:allow-empty-passwords? #f
+                     #:initialize? #t)
+
 	           (dbus-service '())
 		   (dhcp-client-service)
                    %base-services))
