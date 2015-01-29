@@ -5,13 +5,13 @@
              (gnu services)
              (gnu system)
 	     (guix monads))
-(use-service-modules
-  base networking ssh dbus xorg)
+(use-service-modules base networking ssh dbus xorg)
 
-	(use-package-modules
+(use-package-modules
+	 commencement gnupg guile vim wordnet
 	 emacs conkeror ratpoison feh grub gawk perl ncurses fonts 
 	 version-control ssh wget video xiph file compression admin linux xorg
-	 aspell skribilo )
+	 aspell skribilo)
 
 (operating-system
   (host-name "antelope")
@@ -46,15 +46,54 @@
 		   (dhcp-client-service)
                    %base-services))
 
-  (packages (cons* grub
-		   tar gzip bzip2 xz file diffutils gawk perl
-                   ncurses git wget openssh
-		   isc-dhcp iw wpa-supplicant		   
-		   xinit xset setxkbmap xkill xorg-server
-                   aspell aspell-dict-en font-dejavu font-terminus
-                   feh alsa-utils vorbis-tools ffmpeg mplayer
-		   xterm skribilo ratpoison conkeror
-                   emacs emms magit geiser paredit
+  (packages (cons* alsa-utils
+                   aspell
+                   aspell-dict-en
+                   binutils
+                   bzip2
+                   conkeror
+                   diffutils
+                   emacs
+                   emms
+                   feh
+                   ffmpeg
+                   file
+                   font-dejavu
+                   font-terminus
+                   gawk
+                   ; ?? gcc-toolchain
+                   geiser
+                   git
+                   gnupg
+		   grub
+                   ; ?? guile
+                   gzip
+                   isc-dhcp
+                   iw
+                   magit
+                   ; in base... make
+                   mplayer
+                   ncurses
+                   openssh
+                   paredit
+                   perl
+                   ratpoison
+                   setxkbmap
+                   skribilo
+                   sudo
+                   tar
+                   vim
+                   vorbis-tools
+                   wget
+                   wordnet
+                   wpa-supplicant		
+                   xinit
+                   xkill
+                   xorg-server
+                   xrandr
+                   xset
+                   xterm
+                   xz
 		   %base-packages))
 
   ;; This is where user accounts are specified.  The "root"
